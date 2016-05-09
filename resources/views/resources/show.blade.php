@@ -29,7 +29,7 @@
 					'editRoute' => route('clients.resources.edit', ['client' => $resource->client->url, 'resource' => $resource->url]),
 					'deletePermission' => ['delete', $resource],
 					'deleteRoute' => route('clients.resources.destroy', ['client' => $resource->client->url, 'resource' => $resource->url]),
-					'deleteWarning' => $resource->attachments->count() ?
+					'deleteWarning' => isset($resource->attachments) ?
 						'This resource\'s attachments will also be deleted.' :
 						null,
 				])
