@@ -20,11 +20,13 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         $deleteAttachments = function($item) {
-            assert($item instanceOf Attachable, 'object does not use Attachable trait');
+            assert(array_key_exists(Attachable::class,class_uses($item)), 'object does not use Attachable trait');
 
-            foreach ($item->attachments as $attachment) {
-                if (Storage::disk('attachments')->has($attachment)) {
-                    Storage::disk('attachments')->delete($attachment);
+            if(isset($item->attachments )){
+                foreach ($item->attachments as $attachment) {
+                    if (Storage::disk('attachments')->has($attachment)) {
+                        Storage::disk('attachments')->delete($attachment);
+                    }
                 }
             }
         };
